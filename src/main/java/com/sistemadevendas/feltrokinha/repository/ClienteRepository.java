@@ -7,11 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.sistemadevendas.feltrokinha.model.Cliente;
-import com.sistemadevendas.feltrokinha.model.Produto;
 
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Long>  {
-	
-	@Query("select p from Produto p where p.descricao like %?1%")
-	List<Produto> findProdutoByDescricao(String descricao);
+public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
+
+	@Query("select c from Cliente c where c.nome like %?1%")
+	List<Cliente> findClientebyNome(String nome);
 }

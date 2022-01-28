@@ -6,7 +6,9 @@ import com.sistemadevendas.feltrokinha.model.Cliente;
 
 public interface ClienteService {
 	
-	public Cliente saveCliente(Cliente cliente);
-	public List<Cliente> getAllClientes();
-
+	public Cliente create(Cliente cliente);
+	public List<Cliente> findAll();
+	public Cliente findById(Integer id);
+	public Cliente update(Cliente obj, Integer id);
+	public List<Cliente> filterNome(String nome);
 }
