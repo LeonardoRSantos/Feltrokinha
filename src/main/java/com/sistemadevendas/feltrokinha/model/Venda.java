@@ -9,31 +9,25 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Venda implements Serializable{
-	
+public class Venda implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-//	@OneToMany
-//	private Produto produto;
-
 	private Integer idProduto;
 	private String nomeProduto;
 	private String dataVenda;
 	private Integer valorAvista;
-	// private Integer valorAprazo;
-	// private Integer valorUnitario;
 	private Integer quantidade;
-	// private Integer valorParcial;
 	private String formaPagamento;
 	private Integer valorPago;
 	private Integer valorTroco;
-	
-	@OneToOne
-	private Cliente cliente;
+
+//	@OneToOne
+//	private Cliente cliente;
 
 	public Venda() {
 

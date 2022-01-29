@@ -19,10 +19,8 @@ public class ProdutoServiceImpl implements ProdutoService {
 	@Override
 	public Produto create(Produto produto) {
 		
-		produto.setValorAvista(produto.getValorCusto());
-		//produto.setValorAprazo(produto.getValorCusto() * (produto.getLucroAprazo() / 100) + produto.getValorCusto());
-		//produto.setTotalCusto(produto.getQuantidade() * produto.getValorCusto());
-		produto.setTotalEstoque(produto.getQuantidade());
+		produto.setNome(produto.getNome());
+		
 		
 		return produtoRepository.save(produto);
 	}

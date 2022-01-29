@@ -1,19 +1,29 @@
 package com.sistemadevendas.feltrokinha.model;
 
 import java.io.Serializable;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
-public class Cliente implements Serializable{
-	
+@Table(name = "cliente")
+public class Cliente implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -25,8 +35,15 @@ public class Cliente implements Serializable{
 	private String email;
 	@CPF
 	private String cpf;
+
 	@NotBlank
-	private String celular;
+	@Column(name = "celular")
+	@ElementCollection(targetClass = Integer.class)
+	private Set<@NotEmpty String> celular = new LinkedHashSet<>();
+	
+	
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<@NotEmpty Endereco> enderecos = new LinkedHashSet<>();
 
 	public Integer getId() {
 		return id;
@@ -60,14 +77,24 @@ public class Cliente implements Serializable{
 		this.cpf = cpf;
 	}
 
-	public String getCelular() {
+	public Set<String> getCelular() {
 		return celular;
 	}
 
-	public void setCelular(String celular) {
+	public void setCelular(Set<String> celular) {
 		this.celular = celular;
 	}
 	
+	
+
+	public Set<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(Set<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -79,7 +106,7 @@ public class Cliente implements Serializable{
 		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -116,6 +143,5 @@ public class Cliente implements Serializable{
 			return false;
 		return true;
 	}
-
 
 }

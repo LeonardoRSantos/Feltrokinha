@@ -1,6 +1,7 @@
 package com.sistemadevendas.feltrokinha.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,40 +12,28 @@ import javax.persistence.Id;
 public class Produto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
-	private String descricao;
-	private double valorCusto;
-	//private double lucroAvista;
-	//private double lucroAprazo;
-	private double valorAvista;
-	//private double valorAprazo;
-	private Integer quantidade;
+	private String nome;
+	private BigDecimal precoAtual;
+	private Boolean ativo;
+	private Integer quantidadeEstoque;
 	private String unidadeMedida;
-	//private double totalCusto;
-	private double totalEstoque;
-
+	
+	
 	public Produto() {
 
 	}
 
-	public Produto(Integer id, String descricao, double valorCusto, Integer quantidade, String unidadeMedida) {
+	public Produto(Integer id, String nome, BigDecimal precoAtual, Integer quantidadeEstoque, String unidadeMedida) {
 		super();
 		this.id = id;
-		this.descricao = descricao;
-		this.valorCusto = valorCusto;
-		// this.lucroAvista = lucroAvista;
-		// this.lucroAprazo = lucroAprazo;
-		this.setValorAvista(this.valorCusto);
-		// this.setValorAprazo((this.valorCusto * (this.lucroAprazo / 100)) +
-		// this.valorCusto);
-		this.quantidade = quantidade;
+		this.nome = nome;
+		this.precoAtual = precoAtual;
+		this.quantidadeEstoque = quantidadeEstoque;
 		this.unidadeMedida = unidadeMedida;
-		// this.setTotalCusto(quantidade * this.valorCusto);
-		this.setTotalEstoque(quantidade * this.valorAvista);
 	}
 
 	public Integer getId() {
@@ -55,60 +44,36 @@ public class Produto implements Serializable {
 		this.id = id;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public double getValorCusto() {
-		return valorCusto;
+	public BigDecimal getPrecoAtual() {
+		return precoAtual;
 	}
 
-	public void setValorCusto(double valorCusto) {
-		this.valorCusto = valorCusto;
+	public void setPrecoAtual(BigDecimal precoAtual) {
+		this.precoAtual = precoAtual;
 	}
 
-//	public double getLucroAvista() {
-//		return lucroAvista;
-//	}
-//
-//	public void setLucroAvista(double lucroAvista) {
-//		this.lucroAvista = lucroAvista;
-//	}
-//
-//	public double getLucroAprazo() {
-//		return lucroAprazo;
-//	}
-//
-//	public void setLucroAprazo(double lucroAprazo) {
-//		this.lucroAprazo = lucroAprazo;
-//	}
-
-	public double getValorAvista() {
-		return valorAvista;
+	public Boolean getAtivo() {
+		return ativo;
 	}
 
-	public void setValorAvista(double valorAvista) {
-		this.valorAvista = valorAvista;
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
 	}
 
-//	public double getValorAprazo() {
-//		return valorAprazo;
-//	}
-//
-//	public void setValorAprazo(double valorAprazo) {
-//		this.valorAprazo = valorAprazo;
-//	}
-
-	public Integer getQuantidade() {
-		return quantidade;
+	public Integer getQuantidadeEstoque() {
+		return quantidadeEstoque;
 	}
 
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
+	public void setQuantidadeEstoque(Integer quantidadeEstoque) {
+		this.quantidadeEstoque = quantidadeEstoque;
 	}
 
 	public String getUnidadeMedida() {
@@ -119,20 +84,8 @@ public class Produto implements Serializable {
 		this.unidadeMedida = unidadeMedida;
 	}
 
-//	public double getTotalCusto() {
-//		return totalCusto;
-//	}
-//
-//	public void setTotalCusto(double totalCusto) {
-//		this.totalCusto = totalCusto;
-//	}
-
-	public double getTotalEstoque() {
-		return totalEstoque;
-	}
-
-	public void setTotalEstoque(double totalEstoque) {
-		this.totalEstoque = totalEstoque;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override
