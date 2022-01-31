@@ -4,16 +4,7 @@ import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -37,8 +28,12 @@ public class Cliente implements Serializable {
 	private String cpf;
 
 	@NotBlank
+    @ElementCollection
+    @CollectionTable(
+            name = "celular",
+            joinColumns = @JoinColumn(name = "cliente_id")
+    )
 	@Column(name = "celular")
-	@ElementCollection(targetClass = Integer.class)
 	private Set<@NotEmpty String> celular = new LinkedHashSet<>();
 	
 	

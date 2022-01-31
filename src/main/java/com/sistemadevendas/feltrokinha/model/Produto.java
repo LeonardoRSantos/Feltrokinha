@@ -2,13 +2,15 @@ package com.sistemadevendas.feltrokinha.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 
 @Entity
+@Table(name = "produto")
 public class Produto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -16,10 +18,20 @@ public class Produto implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
 	private String nome;
+
+	@Column(name = "preco_atual")
 	private BigDecimal precoAtual;
+
 	private Boolean ativo;
+
+	@NotBlank
+	@Min(0)
+	@Column(name = "quantidade_estoque")
 	private Integer quantidadeEstoque;
+
+
 	private String unidadeMedida;
 	
 	
@@ -88,29 +100,44 @@ public class Produto implements Serializable {
 		return serialVersionUID;
 	}
 
+	public void baixaEstoque(@Positive Integer quantidade){
+		final int novaQuantidade = this.getQuantidadeEstoque() - quantidade;
+
+		if (novaQuantidade < 0){
+			throw new IllegalArgumentException(
+					"Não há disponibilidade no estoque de "
+					+quantidade + " itens do produto " + this.getNome() + "."
+					+"Temos disponível apenas " + this.quantidadeEstoque + "Itens");
+		}
+		this.setQuantidadeEstoque(novaQuantidade);
+	}
+
+	public void adicionaEstoque(@Min(1) Integer quantidade){
+		this.setQuantidadeEstoque(this.getQuantidadeEstoque() + quantidade);
+	}
+
+
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Produto produto = (Produto) o;
+		return Objects.equals(id, produto.id);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Produto other = (Produto) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public String toString() {
+		return "Produto{" +
+				"id=" + id +
+				", nome='" + nome + '\'' +
+				", precoAtual=" + precoAtual +
+				", ativo=" + ativo +
+				'}';
 	}
 
 }
