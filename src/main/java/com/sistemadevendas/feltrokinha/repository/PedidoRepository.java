@@ -6,12 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.sistemadevendas.feltrokinha.model.Venda;
+import com.sistemadevendas.feltrokinha.model.Pedido;
 
 @Repository
-public interface VendaRepository extends JpaRepository<Venda, Integer> {
+public interface PedidoRepository extends JpaRepository<Pedido, Integer> {
 	
-	@Query("select v from Venda v where v.nomeProduto like %?1%")
-	List<Venda> findVendabyNomeProduto(String nomeProduto);
+	@Query("select p from Pedido p where p.id = 1")
+	List<Pedido> findPedidoById(Integer id);
 
 }
