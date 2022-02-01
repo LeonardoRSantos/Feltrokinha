@@ -12,5 +12,6 @@ import com.sistemadevendas.feltrokinha.model.Produto;
 public interface ProdutoRepository extends JpaRepository<Produto, Integer>{
 	
 	@Query("select p from Produto p where p.nome like %?1%")
-	List<Produto> findProdutoByDescricao(String nome);
+	List<Produto> findProdutoNome(String nome);
+
 }

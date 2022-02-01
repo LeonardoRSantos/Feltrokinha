@@ -40,5 +40,45 @@ public class ProdutoServiceImpl implements ProdutoService {
 				"Objeto não encontrado! Id:" + id));
 		
 	}
+	
+	public String delete(Integer id) {
+
+		try {
+			produtoRepository.deleteById(id);
+
+			String msg = "{msg: 'Excluido com sucesso'}";
+
+			return msg;
+
+		} catch (Exception e) {
+			return e.toString();
+		}
+	}
+
+	@Override
+	public Produto atualizaPropriedadeAtivo(Integer id, Boolean ativo) {
+		Produto produto = this.findById(id);
+		produto.setAtivo(ativo);
+		return produto;
+	}
+
+	@Override
+	public Produto update(Integer id, Produto produto) {
+		Produto newProduto = findById(id);
+		
+		newProduto.setNome(produto.getNome());
+		newProduto.setPrecoAtual(produto.getPrecoAtual());
+		newProduto.setQuantidadeEstoque(produto.getQuantidadeEstoque());
+		newProduto.setUnidadeMedida(produto.getUnidadeMedida());
+		newProduto.setAtivo(produto.getAtivo());
+		
+		return produtoRepository.save(newProduto);
+	}
+	
+	@Override
+	public List<Produto> filterNome(String nome){
+		List<Produto> obj = produtoRepository.findProdutoNome(nome);
+		return obj;
+	}
 
 }
